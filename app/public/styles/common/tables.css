@@ -1,0 +1,33 @@
+table {
+    font-family: var(--regular-font);
+    width: 75%;
+    font-size: 16px;
+    border-collapse: separate;
+    display: block;
+    height: 75%;
+    overflow-y: auto;
+}
+
+td{
+    color: var(--dark);
+    padding: 10px; 
+    border-bottom: 2px solid var(--dark); 
+    width: 100%;
+}
+
+td:nth-last-child(1),
+td:nth-last-child(2){
+    width: 20px;
+}
+
+.bi{
+    transition: color linear 0.3s;
+}
+
+.bi-trash:hover{
+    color: var(--red);
+}
+
+.bi-pencil:hover{
+    color: var(--menu-selection);
+}

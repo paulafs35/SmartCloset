@@ -1,0 +1,94 @@
+/* Styles for solid buttons */
+.btn{
+    border-width: 0;
+    display: block;
+    padding: 15px 20px;
+
+    height: fit-content;
+    width: fit-content;
+}
+
+.btn:hover{
+    cursor: pointer;
+}
+
+.btn:hover:disabled{
+    cursor: default;
+}
+
+/* Styles for transparent buttons */
+.btn-border{
+    background-color: transparent;
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+    color: black;
+    display: block;
+    padding: 15px 20px;
+    
+    height: fit-content;
+    width: fit-content;
+
+    position: relative;
+}
+
+.btn-border:hover{
+    cursor: pointer;
+}
+
+.btn-border:hover::before{
+    content: "";
+
+    background-color: black;
+    display: block;
+    opacity: 0.2;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.btn-border:disabled{
+    border-color: rgb(144, 144, 144);
+}
+
+.btn-border:hover:disabled::before{
+    content: "";
+    display: None;
+}
+
+.btn-border:hover:disabled{
+    cursor: default;
+}
+
+
+.light{
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.light:hover{
+    background-color: var(--light-hover);
+}
+
+.dark{
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.dark:hover{
+    background-color: var(--dark-hover);
+}
+
+.add{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    padding: 0
+}

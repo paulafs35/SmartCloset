@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCloset</title>
+    <link rel="shortcut icon" href="/resources/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/homePage.css">
+
+    <script src="./js/home.js"></script>
+</head>
+<body>
+    <div class="velo"></div>
+
+    <section class="content">
+        <h1 class="logo">Smart Closet</h1>
+        <h2>La mejor forma de aprender sobre estéticas</h2>
+        <p>
+            SmartCloset te permite generar paletas de colores y sugiere prendas de ropa según tus estéticas favoritas, además de incluir una amplia variedad de cursos informativos y tutoriales sobre como estilizar tus conjuntos.
+        </p>
+    </section>
+    
+
+    <button class="btn dark" value="login">Iniciar sesión</button>
+    <button class="btn light" value="/signUp">Registrarse</button>
+    
+    <section class="loginContainer">
+
+        <button class="exit" value="exit">X</button>
+
+        <article class="login">
+            <h2>Introduzca sus datos</h2>
+            <form>
+                <div class="form-group">
+                    <label for="tbxUsername">Nombre de usuario</label>
+                    <input type="text" id="tbxUsername" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tbxPassword">Contraseña</label>
+                    <input type="password" id="tbxPassword" name="password" required>
+                </div>
+
+                <p>¿Aún no tienes cuenta? <a class="link-light" href="/signUp">Registrarse</a></p>
+                
+            </form>
+            <button class="btn light" value="/login">Iniciar Sesión</button>
+        </article>
+    </section>
+</body>
+</html>

@@ -1,0 +1,144 @@
+/* Styles for the button in the menu */
+.menu-btn {
+    background: none;
+    border: none;
+
+    padding: 10px;
+
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+  
+.btn-line {
+    background-color: var(--menu-selection);
+    margin: 6px 0;
+    
+    width: 30px;
+    height: 3px;
+
+    transition: all 0.4s linear;
+}
+
+.menu-btn.active .btn-line:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 7px);
+}
+
+.menu-btn.active .btn-line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-btn.active .btn-line:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -7px);
+}
+
+/* Styles for the menu container */
+nav {
+    font-family: var(--regular-font);
+
+    display: none;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    
+    background-color: var(--menu-background);
+
+    height: 100%;
+    width: 200px;
+}
+
+nav.active {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap:nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    justify-items: center;
+}
+
+/* Styles for menu items */
+.menu-item{
+    background-color: transparent;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    position: relative;
+    overflow-y: hidden;
+    color: var(--dark);
+}
+
+.menu-item:not([href]){
+    border-bottom: 5px solid var(--menu-selection);
+    color: var(--dark);
+}
+
+
+@media (width > 700px){
+
+    /* Styles for the button in the menu */
+    .menu-btn{
+        display: none;
+    }
+
+    /* Styles for the menu container */
+    nav, nav.active{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        gap: 0;
+        
+        padding: 0;
+        position: relative;
+        z-index: 0;
+        
+        height: fit-content;
+        width: 50%;
+    }
+    
+     /* Styles for menu items */
+    .menu-item{
+        background-color: transparent;
+
+        flex-grow: 1;
+        text-align: center;
+
+        padding: 20px 0;
+        overflow-y: hidden;
+
+        position: relative;
+        flex-grow: 1;
+        width: fit-content;
+    }
+    
+    .menu-item:not([href]){
+        border-bottom: 5px solid var(--menu-selection);
+    }
+    
+    .menu-item[href]:hover::before{
+        top: 0;
+    }
+    
+    .menu-item[href]:before{
+        content: "";
+
+        display: block;
+        position: absolute;
+        top: 100%;
+        z-index: -1;
+        
+        background-color: var(--menu-hover);
+        
+        height: 100%;
+        width: 100%;
+
+        transition: top 0.4s linear;
+    }   
+}

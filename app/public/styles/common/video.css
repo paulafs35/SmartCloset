@@ -1,0 +1,7 @@
+video{
+    display: block;
+    border: var(--dark) 1px solid;
+    border-radius: 10px;
+    width: 100%;
+    background-color: var(--dark-transparent);
+}

@@ -1,0 +1,43 @@
+/* Font imports */
+@font-face {
+    font-family: Satisfy;
+    src: url("../../resources/fonts/Satisfy/Satisfy-Regular.ttf");
+}
+
+@font-face {
+    font-family: Shantell;
+    src: url("../../resources/fonts/Shantell_Sans/ShantellSans-VariableFont_BNCE\,INFM\,SPAC\,wght.ttf");
+}
+
+/* Variables */
+:root{
+    /* Color palette */
+    --a: #f4ece3; 
+    --b: #e9ccb1; 
+    --c: #d7bba4; 
+    --f: #cbbba1;
+    --red: #f44336; 
+
+    --square-background: #503212;
+
+    --light: #f7f0e4; 
+    --light-hover: #e4dac2; 
+    --link-light-hover: #b5a58a;
+
+    --dark: #251c1a; 
+    --dark-transparent: #251c1ac1; 
+    --dark-hover: #4f423f;
+
+    --menu-selection: #8e7d4f; 
+    --menu-hover: #b49f74; 
+    --menu-background: #dbd2ab;
+
+    /* Font families */
+    --regular-font: 'Shantell', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', Verdana, sans-serif;
+
+    --titles-font: 'Satisfy', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.hide{
+    display: none;
+}

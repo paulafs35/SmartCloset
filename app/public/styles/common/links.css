@@ -1,0 +1,21 @@
+.link-light{
+    border-bottom: 1px solid var(--light);
+    padding: 0 3px;
+}
+
+.link-light:hover{
+    cursor: pointer;
+    color: var(--link-light-hover);
+    border-color: var(--link-light-hover);
+}
+
+.link-dark{
+    border-bottom: 1px solid var(--dark);
+    padding: 0 3px;
+}
+
+.link-dark:hover{
+    cursor: pointer;
+    color: var(--dark-hover);
+    border-color: var(--dark-hover);
+}

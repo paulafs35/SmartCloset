@@ -1,0 +1,15 @@
+@import url("./common/values.css");
+@import url("./common/reset.css");
+
+@import url("./common/header.css");
+
+@import url("./common/buttons.css");
+@import url("./common/links.css");
+@import url("./common/menu.css");
+@import url("./common/input.css");
+@import url("./common/tables.css");
+@import url("./common/scrollbar.css");
+@import url("./common/video.css");
+
+@import url("./common/alert.css");
+@import url("./common/popups.css");

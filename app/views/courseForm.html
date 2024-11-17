@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear cuenta</title>
+    <link rel="shortcut icon" href="/resources/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/userForm.css">
+
+    <script type="module" src="/js/userForm.js"></script>
+</head>
+<body>
+    
+    <form class="popup">
+        <legend>Datos del curso</legend>
+        <input class="tbx" type="text" name="tbxName" id="tbxName" required>
+        <label for="tbxName">Nombre de curso</label>
+        <select name="tbxStyle" id="tbxStyle">
+        </select>
+        <label  for="tbxStyle">Estilo</label>
+
+        <label for="video">Subir vídeo:</label>
+        <label for="video" class="video">
+            <video alt="Course video">
+        </label>
+        <input type="file" id="video" name="video" class="tbx" required>
+
+        <button class="btn dark">Crear usuario</button>
+    </form>
+
+</body>
+</html>

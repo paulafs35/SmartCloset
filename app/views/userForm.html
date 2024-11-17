@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear cuenta</title>
+    <link rel="shortcut icon" href="/resources/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/userForm.css">
+
+    <script type="module" src="/js/userForm.js"></script>
+</head>
+<body>
+    <h1 class="logo"></h1>
+    
+    <div class="container">
+        <form>
+            <fieldset class="account">
+                <legend>Datos de cuenta</legend>
+                <input class="tbx" type="text" name="tbxUser" id="tbxUser" required>
+                <label for="tbxUser">Nombre de usuario</label>
+                <input class="tbx" type="password" name="tbxPassword" id="tbxPassword" required>
+                <label for="tbxPassword">Contraseña</label>
+                <input class="tbx" type="password" name="tbxPasswordConfirmation" id="tbxPasswordConfirmation" required>
+                <label for="tbxPasswordConfirmation">Confirmación de contraseña</label>
+                
+                <select name="tbxRole" id="tbxRole">
+                </select>
+                <label  for="tbxRole">Rol</label>
+
+                <label for="profileImg">Subir imagen de perfil:</label>
+                <label for="profileImg" class="user-image">
+                    <img src="/resources/images/profilePictures/defaultProfile.jpg" alt="Profile Picture">
+                </label>
+                <input type="file" id="profileImg" name="profileImg" class="tbx">
+            </fieldset>
+
+            <fieldset class="user">
+                <legend>Datos de usuario</legend>
+                <input class="tbx" type="text" name="tbxName" id="tbxName" required>
+                <label for="tbxName">Nombre</label>
+                <input class="tbx" type="text" name="tbxSurname" id="tbxSurname" required>
+                <label for="tbxSurname">Apellidos</label>
+                <input class="tbx" type="date" name="tbxBithDate" id="tbxBithDate" required>
+                <label for="tbxBithDate">Fecha de nacimiento</label>
+                <input class="tbx" type="email" name="tbxEmail" id="tbxEmail" placeholder="" required>
+                <label for="tbxEmail">Email</label>
+            </fieldset>
+
+            
+            <fieldset class="aesthetics">
+                <legend>Estéticas</legend>
+                
+            </fieldset>
+        </form>
+        
+        <div class="card">
+            <h3>Información sobre estéticas</h3>
+            <p></p>
+            <img src="">
+        </div>
+    </div>
+
+    <button class="btn dark">Crear usuario</button>
+
+</body>
+</html>
