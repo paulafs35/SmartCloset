@@ -46,7 +46,13 @@ async function addStyleModel(userData) {
             `INSERT INTO styles 
             (description, inspoimg, name) 
             VALUES (?, ?, ?)`, 
-            [description, inspoImg, name]);
+            [description, inspoImg, name]);       
+
+        const [rows] = await connection.query(
+            `SELECT * FROM styles 
+            WHERE name = ?`, 
+            [name]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al insertar estéticas en la base de datos: ` + error.message);
     }
@@ -62,14 +68,26 @@ async function editStyleModel(userData, id) {
             name = ? 
             WHERE idstyle = ?`, 
             [description, inspoImg, name, id]);
+            
+        const [rows] = await connection.query(
+            `SELECT * FROM styles 
+            WHERE idstyle = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al insertar estéticas de la base de datos: ` + error.message);
     }
 }
 
-async function removeStyleModel(id) {
+async function deleteStyleModel(id) {
     try {
         await connection.query(`DELETE FROM styles WHERE idstyle = ?`, [id]);
+        
+        const [rows] = await connection.query(
+            `SELECT * FROM styles 
+            WHERE idstyle = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al estéticas usuarios de la base de datos: ` + error.message);
     }
@@ -81,5 +99,5 @@ module.exports = {
     getStyleByNameModel,
     addStyleModel,
     editStyleModel,
-    removeStyleModel
+    deleteStyleModel
 }

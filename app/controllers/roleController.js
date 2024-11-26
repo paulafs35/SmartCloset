@@ -4,7 +4,6 @@ const RolesModel = require('../models/roleModel');
 async function getAllRolesController(req, res) {
     try {
         const roles = await RolesModel.getAllRolesModel();
-        console.log(roles)
         res.json(roles);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -17,7 +16,6 @@ async function getRoleByIdController(req, res) {
     const id = req.params.id;
     try {
         const roles = await RolesModel.getRoleByIdModel(id);
-        console.log(roles)
         res.json(roles[0]);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -27,7 +25,8 @@ async function getRoleByIdController(req, res) {
 // Controlador para insertar un rol
 async function addRoleController(req, res) {
     try {
-        await RolesModel.addRoleModel(req.body);
+        var roles = await RolesModel.addRoleModel(req.body);
+        res.json(roles)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -37,7 +36,8 @@ async function addRoleController(req, res) {
 async function editRoleController(req, res) {
     const id = req.params.id;
     try {
-        await RolesModel.editRoleModel(id, req.body);
+        var roles = await RolesModel.editRoleModel(id, req.body);
+        res.json(roles)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +47,8 @@ async function editRoleController(req, res) {
 async function deleteRoleController(req, res) {
     const id = req.params.id;
     try {
-        await RolesModel.deleteRoleModel(id);
+        var rows = await RolesModel.deleteRoleModel(id);
+        res.json(rows.length)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

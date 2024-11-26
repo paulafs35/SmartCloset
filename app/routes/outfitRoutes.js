@@ -7,12 +7,11 @@ router.get('/all', outfitController.getAllOutfitsController);
 
 // Ruta para obtener un conjunto por su ID
 router.get('/:id', outfitController.getOutfitByIdController);
+router.get('/garment/:idgarment', outfitController.getOutfitByIdGarmentController);
+router.get('/style/:idstyle', outfitController.getOutfitByIdStyleController);
 
 // Ruta para crear un nuevo conjunto
-router.post('/add', outfitController.addOutfitController);
-
-// Ruta para actualizar un conjunto
-router.put('/:id', outfitController.editOutfitController);
+router.post('/:idgarment', outfitController.setOutfitController);
 
 // Ruta para eliminar un conjunto
 router.delete('/:id', outfitController.deleteOutfitController);

@@ -27,8 +27,31 @@ async function getClosetByIdModel(id) {
     }
 }
 
-async function addClosetModel(userData) {
-    const {idGarment, idColor, idUser} = userData;
+async function getClosetByIdUserModel(idUser) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM closets 
+            WHERE iduser = ?`, 
+            [idUser]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener armarios de la base de datos: ` + error.message);
+    }
+}
+
+async function getClosetByIdStyleModel(idStyle, idUser) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM closets 
+            WHERE iduser = ? AND idstyle = ?`, 
+            [idUser, idStyle]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener armarios de la base de datos: ` + error.message);
+    }
+}
+
+async function addClosetModel(idGarment, idColor, idUser) {
     try {
         await connection.query(
             `INSERT INTO closets 
@@ -40,24 +63,35 @@ async function addClosetModel(userData) {
     }
 }
 
-async function editClosetModel(id, userData) {
-    const {idGarment, idColor, idUser} = userData;
+async function setClosetByUserModel(data, iduser) {
+    const {garments, colors} = data;
     try {
-        await connection.query(
-            `UPDATE closets 
-            SET idgarment = ?,
-            idcolor = ?,
-            iduser = ? 
-            WHERE idcloset = ?`, 
-            [idGarment, idColor, idUser, id]);
+        await connection.query(`DELETE FROM closet WHERE iduser = ?`, [iduser]);
+
+        for (const index in garments) {
+            await addClosetModel(garments[index], colors[index], iduser)
+        }
+
+        const [rows] = await connection.query(
+            `SELECT * FROM closets 
+            WHERE iduser = ?`, 
+            [iduser]);
+        return rows;
     } catch (error) {
-        throw new Error(`Error al editar armarios de la base de datos: ` + error.message);
+        throw new Error(`Error al establecer armarios de la base de datos: ` + error.message);
     }
 }
 
-async function removeClosetModel(id) {
+
+async function deleteClosetModel(id) {
     try {
         await connection.query(`DELETE FROM closet WHERE idcloset = ?`, [id]);
+
+        const [rows] = await connection.query(
+            `SELECT * FROM closets 
+            WHERE idcloset = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al eliminar armarios de la base de datos: ` + error.message);
     }
@@ -66,7 +100,9 @@ async function removeClosetModel(id) {
 module.exports = {
     getAllClosetsModel,
     getClosetByIdModel,
+    getClosetByIdUserModel,
+    getClosetByIdStyleModel,
     addClosetModel,
-    editClosetModel,
-    removeClosetModel
+    setClosetByUserModel,
+    deleteClosetModel
 }

@@ -12,32 +12,24 @@ async function getAllInterestsController(req, res) {
 }
 
 
-// Controlador para obtener un interés por id
-async function getInterestByIdController(req, res) {
-    const id = req.params.id;
+// Controlador para obtener los intereses de un usuario por id
+async function getInterestByIdUserController(req, res) {
+    const id = req.params.userId;
     try {
-        const interests = await InterestsModel.getInterestByIdModel(id);
-        console.log(interests)
-        res.json(interests[0]);
+        const interests = await InterestsModel.getInterestByIdUserModel(id);
+        res.json(interests);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
-// Controlador para insertar un interés
-async function addInterestController(req, res) {
-    try {
-        await InterestsModel.addInterestByIdModel(req.body);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
 
-// Controlador para editar un interés por id
-async function editInterestController(req, res) {
-    const id = req.params.id;
+// Controlador para establecer intereses por id
+async function setInterestController(req, res) {
+    const id = req.params.userId;
     try {
-        await InterestsModel.editInterestModel(id, req.body);
+        const interests = await InterestsModel.setInterestModel(id, req.body);
+        res.json(interests);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +39,8 @@ async function editInterestController(req, res) {
 async function deleteInterestController(req, res) {
     const id = req.params.id;
     try {
-        await InterestsModel.deleteInterestModel(id);
+        const rows = await InterestsModel.deleteInterestModel(id);
+        res.json(rows.length)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -56,9 +49,8 @@ async function deleteInterestController(req, res) {
 
 module.exports = {
     getAllInterestsController,
-    getInterestByIdController,
-    addInterestController,
-    editInterestController,
+    getInterestByIdUserController,
+    setInterestController,
     deleteInterestController
 };
 

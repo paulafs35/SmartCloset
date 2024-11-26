@@ -8,6 +8,11 @@ const fs = require("fs");
 
 function saveImage(base64Image, path){
     path = `./public/${path}`
+    
+    const matches = base64Image.match(/^data:image\/([a-zA-Z]+);base64,(.+)$/);
+    if (matches) {
+        base64Image = matches[2]; // Extract only the Base64 content
+    }
 
     // Write the file using fs.writeFile
     fs.writeFile(path, base64Image, { encoding: 'base64' }, (err) => {
@@ -42,7 +47,7 @@ async function getUserByIdModel(id) {
     }
 }
 
-async function getUserByUsername(username) {
+async function getUserByUsernameModel(username) {
     try {
         const [rows] = await connection.query(
             `SELECT name, surname, username, profilepicture, idrole  FROM users 
@@ -54,7 +59,7 @@ async function getUserByUsername(username) {
     }
 }
 
-async function getUserByEmail(email) {
+async function getUserByEmailModel(email) {
     try {
         const [rows] = await connection.query(
             `SELECT name, surname, username, profilepicture, idrole  FROM users 
@@ -69,7 +74,7 @@ async function getUserByEmail(email) {
 async function addUserModel(userData) {
     const {name, surname, birthDate, username, email, password, profilePicture, rolId} = userData;
     try {
-        imgPath = `./resources/images/profilePictures/${username}.jpg`
+        imgPath = `/resources/images/profilePictures/${username}.jpg`
 
         saveImage(profilePicture, imgPath)
         await connection.query(
@@ -77,15 +82,22 @@ async function addUserModel(userData) {
             (name, surname, birthdate, username, email, password, profilepicture, idrole) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, 
             [name, surname, birthDate, username, email, password, imgPath, rolId]);
+
+        const [rows] = await connection.query(
+            `SELECT iduser FROM users 
+            WHERE email = ?`, 
+            [email]);
+        return rows;
+        
     } catch (error) {
         throw new Error(`Error al insertar usuarios en la base de datos: ` + error.message);
     }
 }
 
-async function editUserModel(userData, id) {
-    const {name, surname, birthDate, username, email, password, imgPath, rolId} = userData;
+async function editUserModel(id, userData) {
+    const {name, surname, birthDate, username, email, password, profilePicture, rolId} = userData;
     try {
-        imgPath = `./resources/images/profilePictures/${username}.jpg`
+        imgPath = `/resources/images/profilePictures/${username}.jpg`
 
         saveImage(profilePicture, imgPath)
 
@@ -100,15 +112,28 @@ async function editUserModel(userData, id) {
             profilepicture = ?, 
             idrole = ? 
             WHERE iduser = ?`, 
-            [dni, name, surname, birthDate, username, email, password, imgPath, rolId, id]);
+            [name, surname, birthDate, username, email, password, imgPath, rolId, id]);
+            
+        const [rows] = await connection.query(
+            `SELECT * FROM users 
+            WHERE iduser = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
+        console.log(error.message)
         throw new Error(`Error al editar usuarios de la base de datos: ` + error.message);
     }
 }
 
-async function removeUserModel(id) {
+async function deleteUserModel(id) {
     try {
         await connection.query(`DELETE FROM users WHERE iduser = ?`, [id]);
+        
+        const [rows] = await connection.query(
+            `SELECT * FROM users 
+            WHERE iduser = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al eliminar usuarios de la base de datos: ` + error.message);
     }
@@ -116,10 +141,10 @@ async function removeUserModel(id) {
 
 module.exports = {
     getAllUsersModel,
-    getUserByUsername,
-    getUserByEmail,
+    getUserByUsernameModel,
+    getUserByEmailModel,
     getUserByIdModel,
     addUserModel,
     editUserModel,
-    removeUserModel
+    deleteUserModel
 }

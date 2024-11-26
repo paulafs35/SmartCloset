@@ -27,36 +27,70 @@ async function getPaletteByIdModel(id) {
     }
 }
 
-async function addPaletteModel(userData) {
-    const {idColor, idStyle} = userData;
+async function getPaletteByIdStyleModel(idstyle) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM palettes 
+            WHERE idstyle = ?`, 
+            [idstyle]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener paletas de la base de datos: ` + error.message);
+    }
+}
+
+async function getPaletteByIdColorModel(idcolor) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM palettes 
+            WHERE idcolor = ?`, 
+            [idcolor]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener paletas de la base de datos: ` + error.message);
+    }
+}
+
+async function addPaletteModel(idcolor, idstyle) {
     try {
         await connection.query(
             `INSERT INTO palettes 
             (idcolor, idstyle) 
             VALUES (?, ?)`, 
-            [idColor, idStyle]);
+            [idcolor, idstyle]);
     } catch (error) {
         throw new Error(`Error al insertar paletas en la base de datos: ` + error.message);
     }
 }
 
-async function editPaletteModel(id, userData) {
-    const {idColor, idStyle} = userData;
+async function setPaletteModel(idcolor, userData) {
+    const {styles} = userData;
     try {
-        await connection.query(
-            `UPDATE palettes 
-            SET idcolor = ?,
-            idstyle = ? 
-            WHERE idpalette = ?`, 
-            [idColor, idStyle, id]);
+        await connection.query(`DELETE FROM palettes WHERE idcolor = ?`, [idcolor]);
+
+        for (const idstyle of styles) {
+            addPaletteModel(idcolor, idstyle);
+        }
+
+        const [rows] = await connection.query(
+            `SELECT * FROM palettes 
+            WHERE idcolor = ?`, 
+            [idcolor]);
+        return rows;
+
     } catch (error) {
         throw new Error(`Error al editar paletas de la base de datos: ` + error.message);
     }
 }
 
-async function removePaletteModel(id) {
+async function deletePaletteModel(id) {
     try {
         await connection.query(`DELETE FROM palettes WHERE idpalette = ?`, [id]);
+        const [rows] = await connection.query(
+            `SELECT * FROM palettes 
+            WHERE idpalette = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al eliminar paletas de la base de datos: ` + error.message);
     }
@@ -65,7 +99,8 @@ async function removePaletteModel(id) {
 module.exports = {
     getAllPalettesModel,
     getPaletteByIdModel,
-    addPaletteModel,
-    editPaletteModel,
-    removePaletteModel
+    getPaletteByIdStyleModel,
+    getPaletteByIdColorModel,
+    setPaletteModel,
+    deletePaletteModel
 }

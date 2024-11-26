@@ -4,7 +4,6 @@ const ClothesModel = require('../models/clothesModel');
 async function getAllGarmentsController(req, res) {
     try {
         const clothes = await ClothesModel.getAllGarmentsModel();
-        console.log(clothes)
         res.json(clothes);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -17,7 +16,6 @@ async function getGarmentByIdController(req, res) {
     const id = req.params.id;
     try {
         const clothes = await ClothesModel.getGarmentByIdModel(id);
-        console.log(clothes)
         res.json(clothes[0]);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -27,7 +25,8 @@ async function getGarmentByIdController(req, res) {
 // Controlador para insertar una prenda
 async function addGarmentController(req, res) {
     try {
-        await ClothesModel.addGarmentModel(req.body);
+        var garment = await ClothesModel.addGarmentModel(req.body);
+        res.json(garment)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -37,7 +36,8 @@ async function addGarmentController(req, res) {
 async function editGarmentController(req, res) {
     const id = req.params.id;
     try {
-        await ClothesModel.editGarmentModel(id, req.body);
+        var garment = await ClothesModel.editGarmentModel(id, req.body);
+        res.json(garment)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +47,8 @@ async function editGarmentController(req, res) {
 async function deleteGarmentController(req, res) {
     const id = req.params.id;
     try {
-        await ClothesModel.deleteGarmentModel(id);
+        var rows = await ClothesModel.deleteGarmentModel(id);
+        res.json(rows.length)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

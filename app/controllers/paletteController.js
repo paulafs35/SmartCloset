@@ -4,7 +4,6 @@ const PalettesModel = require('../models/paletteModel');
 async function getAllPalettesController(req, res) {
     try {
         const palettes = await PalettesModel.getAllPalettesModel();
-        console.log(palettes)
         res.json(palettes);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -13,31 +12,44 @@ async function getAllPalettesController(req, res) {
 
 
 // Controlador para obtener un paleta por id
-async function getPaletteController(req, res) {
+async function getPaletteByIdController(req, res) {
     const id = req.params.id;
     try {
         const palettes = await PalettesModel.getPaletteByIdModel(id);
-        console.log(palettes)
         res.json(palettes[0]);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
-// Controlador para insertar un paleta
-async function addPaletteController(req, res) {
+// Controlador para obtener un paleta por id
+async function getPaletteByIdStyleController(req, res) {
+    const idstyle = req.params.idstyle;
     try {
-        await PalettesModel.addPaletteModel(req.body);
+        const palettes = await PalettesModel.getPaletteByIdStyleModel(idstyle);
+        res.json(palettes);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+// Controlador para obtener un paleta por id
+async function getPaletteByIdColorController(req, res) {
+    const idcolor = req.params.idcolor;
+    try {
+        const palettes = await PalettesModel.getPaletteByIdColorModel(idcolor);
+        res.json(palettes);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
 // Controlador para editar un paleta por id
-async function editPaletteController(req, res) {
-    const id = req.params.id;
+async function setPaletteController(req, res) {
+    const idcolor = req.params.idcolor;
     try {
-        await PalettesModel.editPaletteModel(id, req.body);
+        var palettes = await PalettesModel.editPaletteModel(idcolor, req.body);
+        res.json(palettes)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +59,8 @@ async function editPaletteController(req, res) {
 async function deletePaletteController(req, res) {
     const id = req.params.id;
     try {
-        await PalettesModel.deletePaletteModel(id);
+        var rows = await PalettesModel.deletePaletteModel(id);
+        res.json(rows.length)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -56,9 +69,10 @@ async function deletePaletteController(req, res) {
 
 module.exports = {
     getAllPalettesController,
-    getPaletteController,
-    addPaletteController,
-    editPaletteController,
+    getPaletteByIdController,
+    getPaletteByIdStyleController,
+    getPaletteByIdColorController,
+    setPaletteController,
     deletePaletteController
 };
 

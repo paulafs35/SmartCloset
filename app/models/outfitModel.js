@@ -27,34 +27,62 @@ async function getOutfitByIdModel(id) {
     }
 }
 
-async function addOutfitModel(userData) {
-    const {idGarment, idStyle} = userData;
+async function getOutfitByIdGarmentModel(idgarment) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM outfits 
+            WHERE idgarment = ?`, 
+            [idgarment]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener conjuntos de la base de datos: ` + error.message);
+    }
+}
+
+async function getOutfitByIdStyleModel(idstyle) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM outfits 
+            WHERE idstyle = ?`, 
+            [idstyle]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener conjuntos de la base de datos: ` + error.message);
+    }
+}
+
+async function addOutfitModel(idgarment, idstyle) {
     try {
         await connection.query(
             `INSERT INTO outfits 
             (idgarment, idstyle) 
             VALUES (?, ?)`, 
-            [idGarment, idStyle]);
+            [idgarment, idstyle]);
     } catch (error) {
         throw new Error(`Error al insertar conjuntos en la base de datos: ` + error.message);
     }
 }
 
-async function editOutfitModel(id, userData) {
-    const {idGarment, idStyle} = userData;
+async function setOutfitModel(idgarment, userData) {
+    const {styles} = userData;
     try {
-        await connection.query(
-            `UPDATE outfits 
-            SET idgarment = ?,
-            idstyle = ? 
-            WHERE idoutfit = ?`, 
-            [idGarment, idStyle, id]);
+        await connection.query(`DELETE FROM outfits WHERE idgarment = ?`, [idgarment]);
+
+        for (const idstyle of styles) {
+            await addOutfitModel(idgarment, idstyle);
+        }
+
+        const [rows] = await connection.query(
+            `SELECT * FROM outfits 
+            WHERE idgarment = ?`, 
+            [idgarment]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al editar conjuntos de la base de datos: ` + error.message);
     }
 }
 
-async function removeOutfitModel(id) {
+async function deleteOutfitModel(id) {
     try {
         await connection.query(`DELETE FROM outfits WHERE idoutfit = ?`, [id]);
     } catch (error) {
@@ -65,7 +93,8 @@ async function removeOutfitModel(id) {
 module.exports = {
     getAllOutfitsModel,
     getOutfitByIdModel,
-    addOutfitModel,
-    editOutfitModel,
-    removeOutfitModel
+    getOutfitByIdGarmentModel,
+    getOutfitByIdStyleModel,
+    setOutfitModel,
+    deleteOutfitModel
 }

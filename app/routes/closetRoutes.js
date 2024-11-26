@@ -7,12 +7,11 @@ router.get('/all', closetController.getAllClosetsController);
 
 // Ruta para obtener un armario por su ID
 router.get('/:id', closetController.getClosetByIdController);
-
-// Ruta para crear un nuevo armario
-router.post('/add', closetController.addClosetController);
+router.get('/user/:iduser', closetController.getClosetByIdUserController);
+router.get('/user/:iduser/:idstyle', closetController.getClosetByIdStyleController);
 
 // Ruta para actualizar un armario
-router.put('/:id', closetController.editClosetController);
+router.put('/:userid', closetController.setClosetByUserController);
 
 // Ruta para eliminar un armario
 router.delete('/:id', closetController.deleteClosetController);

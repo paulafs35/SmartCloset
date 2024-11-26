@@ -7,6 +7,8 @@ router.get('/all', courseController.getAllCoursesController);
 
 // Ruta para obtener un curso por su ID
 router.get('/:id', courseController.getCourseByIdController);
+router.get('/teacher/:idteacher', courseController.getCourseByIdStyleController);
+router.get('/style/:idstyle', courseController.getCourseByIdTeacherController);
 
 // Ruta para crear un nuevo curso
 router.post('/add', courseController.addCourseController);

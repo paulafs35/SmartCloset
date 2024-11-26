@@ -35,6 +35,11 @@ async function addGarmentModel(userData) {
             (material, name) 
             VALUES (?, ?)`, 
             [material, name]);
+        var garment = await connection.query(
+            `SELECT * FROM clothes 
+            WHERE material = ? AND name = ?`, 
+            [material, name]);
+        return garment
     } catch (error) {
         throw new Error(`Error al insertar prendas en la base de datos: ` + error.message);
     }
@@ -49,14 +54,26 @@ async function editGarmentModel(id, userData) {
             name = ?
             WHERE idgarment = ?`, 
             [material, name, id]);
+
+        var garment = await connection.query(
+            `SELECT * FROM clothes 
+            WHERE idgarment = ?`, 
+            [id]);
+        return garment
     } catch (error) {
         throw new Error(`Error al editar prendas de la base de datos: ` + error.message);
     }
 }
 
-async function removeGarmentModel(id) {
+async function deleteGarmentModel(id) {
     try {
         await connection.query(`DELETE FROM clothes WHERE idgarment = ?`, [id]);
+        
+        var garment = await connection.query(
+            `SELECT * FROM clothes 
+            WHERE idgarment = ?`, 
+            [id]);
+        return garment
     } catch (error) {
         throw new Error(`Error al eliminar prendas de la base de datos: ` + error.message);
     }
@@ -67,5 +84,5 @@ module.exports = {
     getGarmentByIdModel,
     addGarmentModel,
     editGarmentModel,
-    removeGarmentModel
+    deleteGarmentModel
 }

@@ -35,6 +35,12 @@ async function addRoleModel(userData) {
             (description) 
             VALUES (?)`, 
             [description]);
+
+        const [rows] = await connection.query(
+            `SELECT * FROM roles 
+            WHERE description = ?`, 
+            [description]);
+        return rows
     } catch (error) {
         throw new Error(`Error al insertar roles en la base de datos: ` + error.message);
     }
@@ -48,14 +54,26 @@ async function editRoleModel(id, userData) {
             SET description = ?
             WHERE idrole = ?`, 
             [description, id]);
+
+        const [rows] = await connection.query(
+            `SELECT * FROM roles 
+            WHERE idrole = ?`, 
+            [id]);
+        return rows
     } catch (error) {
         throw new Error(`Error al editar roles de la base de datos: ` + error.message);
     }
 }
 
-async function removeRoleModel(id) {
+async function deleteRoleModel(id) {
     try {
         await connection.query(`DELETE FROM roles WHERE idrole = ?`, [id]);
+
+        const [rows] = await connection.query(
+            `SELECT * FROM roles 
+            WHERE idrole = ?`, 
+            [id]);
+        return rows
     } catch (error) {
         throw new Error(`Error al eliminar roles de la base de datos: ` + error.message);
     }
@@ -66,5 +84,5 @@ module.exports = {
     getRoleByIdModel,
     addRoleModel,
     editRoleModel,
-    removeRoleModel
+    deleteRoleModel
 }

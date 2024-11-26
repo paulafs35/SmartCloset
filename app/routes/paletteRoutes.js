@@ -1,20 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const paletteController = require('../controllers/paletaController');
-
-// Ruta par mostrar la página de usuario
+const paletteController = require('../controllers/paletteController');
 
 // Ruta para obtener todos los paletas
 router.get('/all', paletteController.getAllPalettesController);
 
 // Ruta para obtener un paleta por su ID
 router.get('/:id', paletteController.getPaletteByIdController);
-
-// Ruta para crear un nuevo paleta
-router.post('/add', paletteController.addPaletteController);
+router.get('/color/:idcolor', paletteController.getPaletteByIdColorController);
+router.get('/style/:idstyle', paletteController.getPaletteByIdStyleController);
 
 // Ruta para actualizar un paleta
-router.put('/:id', paletteController.editPaletteController);
+router.post('/:idcolor', paletteController.setPaletteController);
 
 // Ruta para eliminar un paleta
 router.delete('/:id', paletteController.deletePaletteController);

@@ -4,7 +4,6 @@ const LearnedModel = require('../models/learnedModel');
 async function getAllLearnedController(req, res) {
     try {
         const learneds = await LearnedsModel.getAllLearnedModel();
-        console.log(learneds)
         res.json(learneds);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -17,8 +16,29 @@ async function getLearnedByIdController(req, res) {
     const id = req.params.id;
     try {
         const learneds = await LearnedModel.getLearnedByIdModel(id);
-        console.log(learneds)
         res.json(learneds[0]);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+// Controlador para obtener un aprendizaje por id
+async function getLearnedByIdUserController(req, res) {
+    const iduser = req.params.iduser;
+    try {
+        const learneds = await LearnedModel.getLearnedByIdUserModel(iduser);
+        res.json(learneds);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+// Controlador para obtener un aprendizaje por id
+async function getLearnedByIdCourseController(req, res) {
+    const idcourse = req.params.idcourse;
+    try {
+        const learneds = await LearnedModel.getLearnedByIdCourseModel(idcourse);
+        res.json(learneds);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -27,7 +47,8 @@ async function getLearnedByIdController(req, res) {
 // Controlador para insertar un aprendizaje
 async function addLearnedController(req, res) {
     try {
-        await LearnedModel.addLearnedModel(req.body);
+        var learned = await LearnedModel.addLearnedModel(req.body);
+        res.json(learned)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -37,7 +58,8 @@ async function addLearnedController(req, res) {
 async function editLearnedController(req, res) {
     const id = req.params.id;
     try {
-        await LearnedModel.editLearnedModel(id, req.body);
+        var learned = await LearnedModel.editLearnedModel(id, req.body);
+        res.json(learned)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +69,8 @@ async function editLearnedController(req, res) {
 async function deleteLearnedController(req, res) {
     const id = req.params.id;
     try {
-        await LearnedModel.deleteLearnedModel(id);
+        var rows = await LearnedModel.deleteLearnedModel(id);
+        res.json(rows.length)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -57,6 +80,8 @@ async function deleteLearnedController(req, res) {
 module.exports = {
     getAllLearnedController,
     getLearnedByIdController,
+    getLearnedByIdCourseController,
+    getLearnedByIdUserController,
     addLearnedController,
     editLearnedController,
     deleteLearnedController

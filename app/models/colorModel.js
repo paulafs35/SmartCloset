@@ -32,9 +32,15 @@ async function addColorModel(userData) {
     try {
         await connection.query(
             `INSERT INTO colors 
-            (blue, green, red, hexadecimal, name) 
+            (blue, green, red, hex, name) 
             VALUES (?, ?, ?, ?, ?)`, 
             [blue, green, red, hexadecimal, name]);
+
+        const [rows] = await connection.query(
+            `SELECT * FROM colors 
+            WHERE hex = ?`, 
+            [hex]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al insertar colores en la base de datos: ` + error.message);
     }
@@ -48,18 +54,30 @@ async function editColorModel(id, userData) {
             SET blue = ?, 
             green = ?,
             red = ?, 
-            hexadecimal = ?, 
+            hex = ?, 
             name = ?
             WHERE idcolor = ?`, 
             [blue, green, red, hexadecimal, name, id]);
+            
+        const [rows] = await connection.query(
+            `SELECT * FROM colors 
+            WHERE idcolor = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al editar colores de la base de datos: ` + error.message);
     }
 }
 
-async function removeColorModel(id) {
+async function deleteColorModel(id) {
     try {
         await connection.query(`DELETE FROM colors WHERE idcolor = ?`, [id]);
+        
+        const [rows] = await connection.query(
+            `SELECT * FROM colors 
+            WHERE idcolor = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al eliminar colores de la base de datos: ` + error.message);
     }
@@ -70,5 +88,5 @@ module.exports = {
     getColorByIdModel,
     addColorModel,
     editColorModel,
-    removeColorModel
+    deleteColorModel
 }

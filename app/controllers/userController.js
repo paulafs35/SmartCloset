@@ -28,8 +28,7 @@ async function getUserByIdController(req, res) {
 async function getUserByUsernameController(req, res) {
     const username = req.params.username;
     try {
-        const users = await UsersModel.getUserByUsername(username);
-        console.log(users)
+        const users = await UsersModel.getUserByUsernameModel(username);
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -41,7 +40,6 @@ async function getUserByEmailController(req, res) {
     const email = req.params.email;
     try {
         const users = await UsersModel.getUserByEmailModel(email);
-        console.log(users)
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -51,7 +49,8 @@ async function getUserByEmailController(req, res) {
 // Controlador para insertar un usuario
 async function addUserController(req, res) {
     try {
-        await UsersModel.addUserModel(req.body);
+        const user = await UsersModel.addUserModel(req.body);
+        res.json(user);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -61,7 +60,8 @@ async function addUserController(req, res) {
 async function editUserController(req, res) {
     const id = req.params.id;
     try {
-        await UsersModel.editUserModel(id, req.body);
+        const user = await UsersModel.editUserModel(id, req.body);
+        res.json(user);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -71,7 +71,8 @@ async function editUserController(req, res) {
 async function deleteUserController(req, res) {
     const id = req.params.id;
     try {
-        await UsersModel.deleteUserModel(id);
+        const rows = await UsersModel.deleteUserModel(id);
+        res.json(rows.length);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

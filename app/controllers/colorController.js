@@ -4,7 +4,6 @@ const ColorsModel = require('../models/colorModel');
 async function getAllColorsController(req, res) {
     try {
         const colors = await ColorsModel.getAllColorsModel();
-        console.log(colors)
         res.json(colors);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -17,7 +16,6 @@ async function getColorByIdController(req, res) {
     const id = req.params.id;
     try {
         const colors = await ColorsModel.getColorByIdModel(id);
-        console.log(colors)
         res.json(colors[0]);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -27,7 +25,8 @@ async function getColorByIdController(req, res) {
 // Controlador para insertar un color
 async function addColorController(req, res) {
     try {
-        await ColorsModel.addColorModel(req.body);
+        var colors = await ColorsModel.addColorModel(req.body);
+        res.json(colors)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -37,7 +36,8 @@ async function addColorController(req, res) {
 async function editColorController(req, res) {
     const id = req.params.id;
     try {
-        await ColorsModel.editColorModel(id, req.body);
+        var colors = await ColorsModel.editColorModel(id, req.body);
+        res.json(colors)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +47,8 @@ async function editColorController(req, res) {
 async function deleteColorController(req, res) {
     const id = req.params.id;
     try {
-        await ColorsModel.deleteColorModel(id);
+        var rows = await ColorsModel.deleteColorModel(id);
+        res.json(rows.length)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

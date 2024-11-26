@@ -24,20 +24,35 @@ async function getClosetByIdController(req, res) {
     }
 }
 
-// Controlador para insertar un armario
-async function addClosetController(req, res) {
+// Controlador para obtener un armario por id
+async function getClosetByIdUserController(req, res) {
+    const iduser = req.params.iduser;
     try {
-        await ClosetsModel.addClosetModel(req.body);
+        const closets = await ClosetsModel.getClosetByIdUserModel(iduser);
+        res.json(closets);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+// Controlador para obtener un armario por id
+async function getClosetByIdStyleController(req, res) {
+    const iduser = req.params.iduser;
+    const idstyle = req.params.idstyle;
+    try {
+        const closets = await ClosetsModel.getClosetByIdStyleModel(idstyle, iduser);
+        res.json(closets);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
 
 // Controlador para editar un armario por id
-async function editClosetController(req, res) {
-    const id = req.params.id;
+async function setClosetByUserController(req, res) {
+    const userid = req.params.userid;
     try {
-        await ClosetsModel.editClosetModel(id, req.body);
+        var closet = await ClosetsModel.setClosetByUserModel(userid, req.body);
+        res.json(closet)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +62,8 @@ async function editClosetController(req, res) {
 async function deleteClosetController(req, res) {
     const id = req.params.id;
     try {
-        await ClosetsModel.deleteClosetModel(id);
+        var rows = await ClosetsModel.deleteClosetModel(id);
+        res.json(rows.length)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -57,8 +73,9 @@ async function deleteClosetController(req, res) {
 module.exports = {
     getAllClosetsController,
     getClosetByIdController,
-    addClosetController,
-    editClosetController,
+    getClosetByIdUserController,
+    getClosetByIdStyleController,
+    setClosetByUserController,
     deleteClosetController
 };
 

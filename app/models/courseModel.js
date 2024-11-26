@@ -27,6 +27,29 @@ async function getCourseByIdModel(id) {
     }
 }
 
+async function getCourseByIdStyleModel(idstyle) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM courses 
+            WHERE idstyle = ?`, 
+            [idstyle]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener cursos de la base de datos: ` + error.message);
+    }
+}
+async function getCourseByIdTeacherModel(idteacher) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM courses 
+            WHERE idteacher = ?`, 
+            [idteacher]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener cursos de la base de datos: ` + error.message);
+    }
+}
+
 async function addCourseModel(userData) {
     const {idStyle, idTeacher, description, title, video} = userData;
     try {
@@ -35,6 +58,7 @@ async function addCourseModel(userData) {
             (idstyle, idteacher, description, title, video) 
             VALUES (?, ?, ?, ?, ?)`, 
             [idStyle, idTeacher, description, title, video]);
+        
     } catch (error) {
         throw new Error(`Error al insertar cursos en la base de datos: ` + error.message);
     }
@@ -52,14 +76,25 @@ async function editCourseModel(id, userData) {
             video = ?
             WHERE idcourse = ?`, 
             [idStyle, idTeacher, description, title, video, id]);
+        const [rows] = await connection.query(
+            `SELECT * FROM courses 
+            WHERE idcourse = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al editar cursos de la base de datos: ` + error.message);
     }
 }
 
-async function removeCourseModel(id) {
+async function deleteCourseModel(id) {
     try {
         await connection.query(`DELETE FROM courses WHERE idcourse = ?`, [id]);
+
+        const [rows] = await connection.query(
+            `SELECT * FROM courses 
+            WHERE idcourse = ?`, 
+            [id]);
+        return rows;
     } catch (error) {
         throw new Error(`Error al eliminar cursos de la base de datos: ` + error.message);
     }
@@ -68,7 +103,9 @@ async function removeCourseModel(id) {
 module.exports = {
     getAllCoursesModel,
     getCourseByIdModel,
+    getCourseByIdTeacherModel,
+    getCourseByIdStyleModel,
     addCourseModel,
     editCourseModel,
-    removeCourseModel
+    deleteCourseModel
 }
