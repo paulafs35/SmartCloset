@@ -15,6 +15,7 @@ const interestRoutes = require('./routes/interestRoutes');
 const paletteRoutes = require('./routes/paletteRoutes');
 const outfitRoutes = require('./routes/outfitRoutes');
 const closetRoutes = require('./routes/closetRoutes');
+const learnedRoutes = require('./routes/learnedRoutes');
 
 const app = express();
 app.use(express.json({ limit: '50mb' }));
@@ -45,6 +46,7 @@ app.use("/interest", interestRoutes);
 app.use("/palette", paletteRoutes);
 app.use("/outfit", outfitRoutes);
 app.use("/closet", closetRoutes);
+app.use("/learned", learnedRoutes);
 
 
 const PORT = process.env.PORT || 3000;

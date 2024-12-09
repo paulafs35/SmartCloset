@@ -7,6 +7,7 @@ router.get('/all', learnedController.getAllLearnedController);
 
 // Ruta para obtener un conjunto por su ID
 router.get('/:id', learnedController.getLearnedByIdController);
+router.get('/:iduser/:idcourse', learnedController.getLearnedByIdUserIdCourseController);
 router.get('/user/:iduser', learnedController.getLearnedByIdUserController);
 router.get('/course/:idcourse', learnedController.getLearnedByIdCourseController);
 
@@ -17,6 +18,6 @@ router.post('/add', learnedController.addLearnedController);
 router.put('/:id', learnedController.editLearnedController);
 
 // Ruta para eliminar un conjunto
-router.delete('/:id', learnedController.deleteLearnedController);
+router.delete('/:iduser/:idcourse', learnedController.deleteLearnedController);
 
 module.exports = router;

@@ -36,6 +36,25 @@ export class IndividualCourseView{
 
         document.querySelector('.videoData p').textContent = course['description']
     }
+
+    setToggleButton(isLearned){
+        var btn = document.querySelector('.btn')
+        
+        if (isLearned){
+            btn.textContent = 'Desmarcar como visto'
+            if (btn.classList.contains('dark')){
+                btn.classList.remove('dark');
+                btn.classList.add('light')
+            }
+        }
+        else{
+            btn.textContent = 'Marcar como visto'
+            if (btn.classList.contains('light')){
+                btn.classList.remove('light');
+                btn.classList.add('dark')
+            }
+        }
+    }
 }
 
 

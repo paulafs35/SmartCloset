@@ -1,9 +1,9 @@
-export class ClosetModel{
+export class LearnedModel{
     
     //  CRUD METHODS
     async add(jsonData){
         // Send the data to the API using fetch()
-        var result = await fetch(`/closet/add`, {
+        var result = await fetch(`/learned/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export class ClosetModel{
 
     async update(jsonData, id){
         // Send the data to the API using fetch()
-        var result = await fetch(`/closet/${id}`, {
+        var result = await fetch(`/learned/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,9 +28,9 @@ export class ClosetModel{
         return result
     }
 
-    async delete(id){
+    async delete(iduser, idcourse){
         // Send the data to the API using fetch()
-        var result = await fetch(`/closet/${id}`, {
+        var result = await fetch(`/learned/${iduser}/${idcourse}`, {
             method: 'DELETE'
         })
     
@@ -40,9 +40,30 @@ export class ClosetModel{
 
     // GETTERS
 
-    async getByStyle(iduser, idstyle){
-        var data = await fetch(`/closet/user/${iduser}/${idstyle}`, {method: 'GET'})
+    async getByUser(iduser){
+        var data = await fetch(`/learned/user/${iduser}`, {method: 'GET'})
         data = await data.json()
         return data
+    }
+
+    async getByCourse(idcourse){
+        var data = await fetch(`/learned/course/${idcourse}`, {method: 'GET'})
+        data = await data.json()
+        return data
+    }
+
+    async getByUserCourse(iduser, idcourse){
+        var data = await fetch(`/learned/${iduser}/${idcourse}`, {method: 'GET'})
+        data = await data.json()
+        return data
+    }
+
+    // CHECKS
+
+    async isLearned(iduser, idcourse)
+    {
+        var learned = await this.getByUserCourse(iduser, idcourse)
+
+        return (learned.length > 0)
     }
 }

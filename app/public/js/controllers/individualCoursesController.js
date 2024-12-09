@@ -1,12 +1,12 @@
 export class IndividualCourseController{
-    constructor (view, userModel, roleModel, courseModel, styleModel){
+    constructor (view, userModel, roleModel, courseModel, learnedModel){
 
         this.view = view;
 
         this.userModel = userModel;
         this.roleModel = roleModel;
         this.courseModel = courseModel;
-        this.styleModel = styleModel;
+        this.learnedModel = learnedModel;
     }
 
     async getPath(){
@@ -46,7 +46,30 @@ export class IndividualCourseController{
     }
 
     async loadData(){
+        var that = this;
+
         var course = await this.courseModel.getById(this.courseId)
         this.view.loadCourse(course)
+
+        var isLearned = await this.learnedModel.isLearned(this.id, this.courseId);
+        this.view.setToggleButton(isLearned)
+
+        document.querySelector('.btn').addEventListener('click', async (e) => {
+            var btn = e.target;
+            var isLearned = !btn.classList.contains('light');
+            if(isLearned)
+            {
+                var jsonData = {
+                    'iduser': that.id, 
+                    'idcourse': that.courseId
+                }
+                
+                await that.learnedModel.add(jsonData)
+            }
+            else{
+                await that.learnedModel.delete(that.id, that.courseId)
+            }
+            this.view.setToggleButton(isLearned)
+        })
     }
 }

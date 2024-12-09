@@ -1,11 +1,11 @@
-import { IndividualCourseController } from "./controllers/individualCourseController.js";
+import { IndividualCourseController } from "./controllers/individualCoursesController.js";
 
 import { IndividualCourseView } from "./view/individualCourseView.js";
 
 import { UserModel } from "./model/userModel.js";
 import { RoleModel } from "./model/roleModel.js";
 import { CourseModel } from "./model/courseModel.js";
-import { StyleModel } from "./model/styleModel.js";
+import { LearnedModel } from "./model/learnedModel.js";
 
 window.onload = async function () {
     var view = new IndividualCourseView();
@@ -13,10 +13,10 @@ window.onload = async function () {
     var userModel = new UserModel();
     var roleModel = new RoleModel();
     var courseModel = new CourseModel();
-    var styleModel = new StyleModel();
+    var learnedModel = new LearnedModel();
 
 
-    var controller = new IndividualCourseController(view, userModel, roleModel, courseModel, styleModel);
+    var controller = new IndividualCourseController(view, userModel, roleModel, courseModel, learnedModel);
 
     await controller.showMenu();
     await controller.loadData();

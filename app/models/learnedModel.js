@@ -39,6 +39,18 @@ async function getLearnedByIdUserModel(iduser) {
     }
 }
 
+async function getLearnedByIdUserIdCourseModel(iduser, idcourse) {
+    try {
+        const [rows] = await connection.query(
+            `SELECT * FROM learned 
+            WHERE iduser = ? AND idcourse = ?`, 
+            [iduser, idcourse]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener aprendizajes de la base de datos: ` + error.message);
+    }
+}
+
 async function getLearnedByIdCourseModel(idcourse) {
     try {
         const [rows] = await connection.query(
@@ -52,18 +64,18 @@ async function getLearnedByIdCourseModel(idcourse) {
 }
 
 async function addLearnedModel(userData) {
-    const {idCourse, idUser} = userData;
+    const {idcourse, iduser} = userData;
     try {
         await connection.query(
             `INSERT INTO learned 
             (idcourse, iduser) 
             VALUES (?, ?)`, 
-            [idCourse, idUser]);
+            [idcourse, iduser]);
 
         const [rows] = await connection.query(
             `SELECT * FROM learned 
             WHERE idcourse = ? AND iduser = ?`, 
-            [idCourse, idUser]);
+            [idcourse, iduser]);
         return rows;
     } catch (error) {
         throw new Error(`Error al insertar aprendizajes en la base de datos: ` + error.message);
@@ -71,14 +83,14 @@ async function addLearnedModel(userData) {
 }
 
 async function editLearnedModel(id, userData) {
-    const {idCourse, idUser} = userData;
+    const {idcourse, idUser} = userData;
     try {
         await connection.query(
             `UPDATE learned 
             SET idcourse = ?,
             iduser = ? 
             WHERE idlearned = ?`, 
-            [idCourse, idUser, id]);
+            [idcourse, iduser, id]);
 
         const [rows] = await connection.query(
             `SELECT * FROM learned 
@@ -90,9 +102,9 @@ async function editLearnedModel(id, userData) {
     }
 }
 
-async function deleteLearnedModel(id) {
+async function deleteLearnedModel(iduser, idcourse) {
     try {
-        await connection.query(`DELETE FROM learned WHERE idlearned = ?`, [id]);
+        await connection.query(`DELETE FROM learned WHERE iduser = ? AND idcourse = ?`, [iduser, idcourse]);
 
         const [rows] = await connection.query(
             `SELECT * FROM learned 
@@ -108,6 +120,7 @@ module.exports = {
     getAllLearnedModel,
     getLearnedByIdModel,
     getLearnedByIdCourseModel,
+    getLearnedByIdUserIdCourseModel,
     getLearnedByIdUserModel,
     addLearnedModel,
     editLearnedModel,
