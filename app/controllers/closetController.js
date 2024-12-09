@@ -4,7 +4,6 @@ const ClosetsModel = require('../models/closetModel');
 async function getAllClosetsController(req, res) {
     try {
         const closets = await ClosetsModel.getAllClosetsModel();
-        console.log(closets)
         res.json(closets);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -17,7 +16,6 @@ async function getClosetByIdController(req, res) {
     const id = req.params.id;
     try {
         const closets = await ClosetsModel.getClosetByIdModel(id);
-        console.log(closets)
         res.json(closets[0]);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -48,10 +46,20 @@ async function getClosetByIdStyleController(req, res) {
 }
 
 // Controlador para editar un armario por id
-async function setClosetByUserController(req, res) {
-    const userid = req.params.userid;
+async function addClosetController(req, res) {
     try {
-        var closet = await ClosetsModel.setClosetByUserModel(userid, req.body);
+        var closet = await ClosetsModel.addClosetModel(req.body);
+        res.json(closet)
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
+// Controlador para editar un armario por id
+async function editClosetController(req, res) {
+    const id = req.params.id;
+    try {
+        var closet = await ClosetsModel.editClosetModel(req.body, id);
         res.json(closet)
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -75,7 +83,8 @@ module.exports = {
     getClosetByIdController,
     getClosetByIdUserController,
     getClosetByIdStyleController,
-    setClosetByUserController,
+    addClosetController,
+    editClosetController,
     deleteClosetController
 };
 

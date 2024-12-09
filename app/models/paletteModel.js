@@ -30,8 +30,9 @@ async function getPaletteByIdModel(id) {
 async function getPaletteByIdStyleModel(idstyle) {
     try {
         const [rows] = await connection.query(
-            `SELECT * FROM palettes 
-            WHERE idstyle = ?`, 
+            `SELECT c.* 
+            FROM palettes p INNER JOIN colors c ON c.idcolor = p.idcolor
+            WHERE p.idstyle = ?`, 
             [idstyle]);
         return rows;
     } catch (error) {

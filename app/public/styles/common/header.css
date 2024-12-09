@@ -3,6 +3,8 @@ header{
     flex-direction: row;
     background-color: var(--menu-background);
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    padding: 0 20px;
 }
 
 .logo{
@@ -14,7 +16,10 @@ header{
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    flex-grow: 1;
+}
+
+.logo h1{
+    font-family: var(--titles-font);
 }
 
 .logo img{
@@ -23,16 +28,33 @@ header{
 
 .small{
     margin: 10px;
-    font-family: var(--titles-font);
     font-size: 30px;
     font-weight: bold;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    flex-grow: 1;
 }
 
 .small img{
     height: 40px;
+}
+
+.userZone{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.userZone img{
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.userZone:hover img{
+    filter: grayscale(100%);
 }

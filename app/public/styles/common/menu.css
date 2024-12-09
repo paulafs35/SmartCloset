@@ -12,6 +12,7 @@
 }
   
 .btn-line {
+    display: block;
     background-color: var(--menu-selection);
     margin: 6px 0;
     

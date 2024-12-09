@@ -28,13 +28,13 @@ async function getColorByIdModel(id) {
 }
 
 async function addColorModel(userData) {
-    const {blue, green, red, hexadecimal, name} = userData;
+    const {blue, green, red, hex, name} = userData;
     try {
         await connection.query(
             `INSERT INTO colors 
             (blue, green, red, hex, name) 
             VALUES (?, ?, ?, ?, ?)`, 
-            [blue, green, red, hexadecimal, name]);
+            [blue, green, red, hex, name]);
 
         const [rows] = await connection.query(
             `SELECT * FROM colors 
@@ -47,7 +47,7 @@ async function addColorModel(userData) {
 }
 
 async function editColorModel(id, userData) {
-    const {blue, green, red, hexadecimal, name} = userData;
+    const {blue, green, red, hex, name} = userData;
     try {
         await connection.query(
             `UPDATE colors 
@@ -57,7 +57,7 @@ async function editColorModel(id, userData) {
             hex = ?, 
             name = ?
             WHERE idcolor = ?`, 
-            [blue, green, red, hexadecimal, name, id]);
+            [blue, green, red, hex, name, id]);
             
         const [rows] = await connection.query(
             `SELECT * FROM colors 

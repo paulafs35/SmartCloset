@@ -48,7 +48,7 @@ async function getPaletteByIdColorController(req, res) {
 async function setPaletteController(req, res) {
     const idcolor = req.params.idcolor;
     try {
-        var palettes = await PalettesModel.editPaletteModel(idcolor, req.body);
+        var palettes = await PalettesModel.setPaletteModel(idcolor, req.body);
         res.json(palettes)
     } catch (error) {
         res.status(500).json({ error: error.message });

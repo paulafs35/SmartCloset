@@ -3,7 +3,7 @@ export class CourseModel{
     //  CRUD METHODS
     async add(jsonData){
         // Send the data to the API using fetch()
-        var result = await fetch('./course/add', {
+        var result = await fetch('/course/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export class CourseModel{
 
     async update(jsonData, id){
         // Send the data to the API using fetch()
-        var result = await fetch(`./course/${id}`, {
+        var result = await fetch(`/course/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export class CourseModel{
 
     async delete(id){
         // Send the data to the API using fetch()
-        var result = await fetch(`./course/${id}`, {
+        var result = await fetch(`/course/${id}`, {
             method: 'DELETE'
         })
     
@@ -43,8 +43,15 @@ export class CourseModel{
     }
 
     // GETTERS
-    async getByName(coursename){
-        var courses = await fetch(`/course/name/${coursename}`, {method: 'GET'})
+    async getByTeacher(teacherid){
+        var courses = await fetch(`/course/teacher/${teacherid}`, {method: 'GET'})
+        courses = await courses.json()
+    
+        return await courses
+    }
+
+    async getByStyle(styleid){
+        var courses = await fetch(`/course/style/${styleid}`, {method: 'GET'})
         courses = await courses.json()
     
         return await courses

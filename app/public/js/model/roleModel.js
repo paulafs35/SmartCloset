@@ -3,7 +3,7 @@ export class RoleModel{
     //  CRUD METHODS
     async add(jsonData){
         // Send the data to the API using fetch()
-        var result = await fetch('./role/add', {
+        var result = await fetch('/role/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export class RoleModel{
 
     async update(jsonData, id){
         // Send the data to the API using fetch()
-        var result = await fetch(`./role/${id}`, {
+        var result = await fetch(`/role/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export class RoleModel{
 
     async delete(id){
         // Send the data to the API using fetch()
-        var result = await fetch(`./role/${id}`, {
+        var result = await fetch(`/role/${id}`, {
             method: 'DELETE'
         })
     

@@ -4,7 +4,6 @@ const UsersModel = require('../models/userModel');
 async function getAllUsersController(req, res) {
     try {
         const users = await UsersModel.getAllUsersModel();
-        console.log(users)
         res.json(users);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -17,7 +16,6 @@ async function getUserByIdController(req, res) {
     const id = req.params.id;
     try {
         const users = await UsersModel.getUserByIdModel(id);
-        console.log(users)
         res.json(users[0]);
     } catch (error) {
         res.status(500).json({ error: error.message });

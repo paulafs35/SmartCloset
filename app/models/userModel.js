@@ -7,11 +7,11 @@ const fs = require("fs");
 })()
 
 function saveImage(base64Image, path){
-    path = `./public/${path}`
+    var path = `./public/${path}`
     
     const matches = base64Image.match(/^data:image\/([a-zA-Z]+);base64,(.+)$/);
     if (matches) {
-        base64Image = matches[2]; // Extract only the Base64 content
+        var base64Image = matches[2]; // Extract only the Base64 content
     }
 
     // Write the file using fs.writeFile
@@ -74,9 +74,9 @@ async function getUserByEmailModel(email) {
 async function addUserModel(userData) {
     const {name, surname, birthDate, username, email, password, profilePicture, rolId} = userData;
     try {
-        imgPath = `/resources/images/profilePictures/${username}.jpg`
+        var imgPath = `/resources/images/profilePictures/${username.replaceAll(' ', '_')}.jpg`;
+        saveImage(profilePicture, imgPath);
 
-        saveImage(profilePicture, imgPath)
         await connection.query(
             `INSERT INTO users 
             (name, surname, birthdate, username, email, password, profilepicture, idrole) 
@@ -97,9 +97,8 @@ async function addUserModel(userData) {
 async function editUserModel(id, userData) {
     const {name, surname, birthDate, username, email, password, profilePicture, rolId} = userData;
     try {
-        imgPath = `/resources/images/profilePictures/${username}.jpg`
-
-        saveImage(profilePicture, imgPath)
+        var imgPath = `/resources/images/profilePictures/${username.replaceAll(' ', '_')}.jpg`;
+        saveImage(profilePicture, imgPath);
 
         await connection.query(
             `UPDATE users 
@@ -139,6 +138,18 @@ async function deleteUserModel(id) {
     }
 }
 
+async function authUserModel(username, password){
+    try {
+        const [rows] = await connection.query(
+            `SELECT *  FROM users 
+            WHERE username = ? AND password = ?`, 
+            [username, password]);
+        return rows;
+    } catch (error) {
+        throw new Error(`Error al obtener usuarios de la base de datos: ` + error.message);
+    }
+}
+
 module.exports = {
     getAllUsersModel,
     getUserByUsernameModel,
@@ -146,5 +157,6 @@ module.exports = {
     getUserByIdModel,
     addUserModel,
     editUserModel,
-    deleteUserModel
+    deleteUserModel,
+    authUserModel
 }

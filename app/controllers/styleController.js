@@ -47,7 +47,7 @@ async function addStyleController(req, res) {
 async function editStyleController(req, res) {
     const id = req.params.id;
     try {
-        var style = await StylesModel.editStyleModel(id, req.body);
+        var style = await StylesModel.editStyleModel(req.body, id);
         res.json(style)
     } catch (error) {
         res.status(500).json({ error: error.message });

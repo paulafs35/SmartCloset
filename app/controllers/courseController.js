@@ -44,6 +44,17 @@ async function getCourseByIdStyleController(req, res) {
     }
 }
 
+// Controlador para obtener un curso por id
+async function getCourseByNameController(req, res) {
+    const name = req.params.name;
+    try {
+        const courses = await CoursesModel.getCourseByNameModel(name);
+        res.json(courses);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+
 // Controlador para insertar un curso
 async function addCourseController(req, res) {
     try {
@@ -82,6 +93,7 @@ module.exports = {
     getCourseByIdController,
     getCourseByIdTeacherController,
     getCourseByIdStyleController,
+    getCourseByNameController,
     addCourseController,
     editCourseController,
     deleteCourseController

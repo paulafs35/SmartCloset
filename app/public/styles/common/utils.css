@@ -1,0 +1,11 @@
+.hidden{
+    display: none !important;
+}
+
+.color{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: black 1px solid;
+    border-radius: 100%;
+}

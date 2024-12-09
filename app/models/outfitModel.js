@@ -42,8 +42,9 @@ async function getOutfitByIdGarmentModel(idgarment) {
 async function getOutfitByIdStyleModel(idstyle) {
     try {
         const [rows] = await connection.query(
-            `SELECT * FROM outfits 
-            WHERE idstyle = ?`, 
+            `SELECT c.* 
+            FROM outfits o INNER JOIN clothes c ON c.idgarment = o.idgarment
+            WHERE o.idstyle = ?`,
             [idstyle]);
         return rows;
     } catch (error) {

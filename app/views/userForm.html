@@ -20,16 +20,16 @@
                 <input class="tbx" type="text" name="tbxUser" id="tbxUser" required>
                 <label for="tbxUser">Nombre de usuario</label>
                 <input class="tbx" type="password" name="tbxPassword" id="tbxPassword" required>
-                <label for="tbxPassword">Contraseña</label>
+                <label for="tbxPassword" autocomplete="current-password">Contraseña</label>
                 <input class="tbx" type="password" name="tbxPasswordConfirmation" id="tbxPasswordConfirmation" required>
-                <label for="tbxPasswordConfirmation">Confirmación de contraseña</label>
+                <label for="tbxPasswordConfirmation" autocomplete="current-password">Confirmación de contraseña</label>
                 
                 <select name="tbxRole" id="tbxRole">
                 </select>
                 <label  for="tbxRole">Rol</label>
 
                 <label for="profileImg">Subir imagen de perfil:</label>
-                <label for="profileImg" class="user-image">
+                <label for="profileImg" class="imageContainer">
                     <img src="/resources/images/profilePictures/defaultProfile.jpg" alt="Profile Picture">
                 </label>
                 <input type="file" id="profileImg" name="profileImg" class="tbx">
@@ -50,7 +50,9 @@
             
             <fieldset class="aesthetics">
                 <legend>Estéticas</legend>
-                
+                <div class="stylesContainer">
+
+                </div>
             </fieldset>
         </form>
         
@@ -61,7 +63,7 @@
         </div>
     </div>
 
-    <button class="btn dark">Crear usuario</button>
+    <button class="btn dark"></button>
 
 </body>
 </html>

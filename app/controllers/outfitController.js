@@ -49,7 +49,7 @@ async function getOutfitByIdGarmentController(req, res) {
 async function setOutfitController(req, res) {
     const idgarment = req.params.idgarment;
     try {
-        var outfits = await OutfitsModel.editOutfitModel(idgarment, req.body);
+        var outfits = await OutfitsModel.setOutfitModel(idgarment, req.body);
         res.json(outfits)
     } catch (error) {
         res.status(500).json({ error: error.message });

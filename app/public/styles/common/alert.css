@@ -1,24 +1,23 @@
 /* The alert message box */
 .alert {
     padding: 20px;
-    background-color: var(--red); 
-    color: white;
+    margin: 0 auto;
     margin-bottom: 15px;
     opacity: 1;
     transition: opacity 0.5s ease;
     position: absolute;
     top: 20px;
+    z-index: 10;
 }
 
 .alert.hidden {
+    display: block !important;
     opacity: 0;
 }
 
-  
 /* The close button */
 .closebtn {
     margin-left: 15px;
-    color: white;
     font-weight: bold;
     float: right;
     font-size: 22px;
@@ -27,7 +26,44 @@
     transition: 0.3s;
 }
 
-/* When moving the mouse over the close button */
-.closebtn:hover {
+.btnContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.btnContainer.btn{
+    flex-grow: 1;
+    flex-basis: 40%;
+}
+
+.error{
+    background-color: var(--red); 
+    color: white;
+}
+
+  
+.error .closebtn {
+    color: white;
+}
+
+.error .closebtn:hover {
+    color: black;
+}
+
+.info{
+    background-color: var(--link-light-hover); 
+    color: black;
+}
+
+.info .closebtn {
+    color: black;
+}
+
+.info .closebtn:hover {
     color: black;
 }

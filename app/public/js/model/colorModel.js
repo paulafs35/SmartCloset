@@ -2,7 +2,7 @@ export class ColorModel{
 
     // CRUD METHODS
     async add(jsonData){
-        var colors = await fetch('./color/add', {
+        var colors = await fetch('/color/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export class ColorModel{
     }
 
     async update(jsonData, id){
-        var colors = await fetch(`./color/${id}`, {
+        var colors = await fetch(`/color/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export class ColorModel{
     }
 
     async delete(id){
-        var colors = await fetch(`./color/${id}`, {
+        var colors = await fetch(`/color/${id}`, {
             method: 'DELETE'
         })
 

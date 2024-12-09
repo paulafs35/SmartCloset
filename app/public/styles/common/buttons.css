@@ -65,21 +65,21 @@
 }
 
 
-.light{
+.btn.light{
     background-color: var(--light);
     color: var(--dark);
 }
 
-.light:hover{
+.btn.light:hover{
     background-color: var(--light-hover);
 }
 
-.dark{
+.btn.dark{
     background-color: var(--dark);
     color: var(--light);
 }
 
-.dark:hover{
+.btn.dark:hover{
     background-color: var(--dark-hover);
 }
 

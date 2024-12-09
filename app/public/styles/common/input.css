@@ -39,12 +39,12 @@
     display: none;
 }
 
-
-select + label{
-    position: relative;
-    font-size: 14px;
-    top: -46px;
+textarea.tbx {
+    border: 3px solid var(--dark);
+    min-height: 80px;
+    resize: none;
 }
+
 
 select{
     font-family: var(--regular-font);
@@ -86,8 +86,6 @@ select:focus{
     color: var(--light);
 }
 
-
-
 fieldset{
     border: var(--dark-hover) solid 5px;
     display: flex;
@@ -104,4 +102,31 @@ legend{
     font-weight: bold;
     color: var(--dark-hover);
     position: relative;
+}
+
+.imageContainer{
+    align-self: center;
+}
+
+.imageContainer img{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.imageContainer img.not-rounded{
+    border-radius: 10px;
+}
+
+.imageContainer img:hover{
+    filter: grayscale(100%);
+}
+
+.form-group{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
 }

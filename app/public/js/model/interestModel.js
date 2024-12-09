@@ -1,23 +1,10 @@
 export class InterestModel{
     
     //  CRUD METHODS
-    async add(jsonData){
+    async set(jsonData, id){
         // Send the data to the API using fetch()
-        result = await fetch('./interest/add', {
+        var result = await fetch(`/interest/${id}`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(jsonData), 
-        })
-    
-        return await result.json()
-    }
-
-    async update(jsonData, id){
-        // Send the data to the API using fetch()
-        result = await fetch(`./user/${id}`, {
-            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -29,7 +16,7 @@ export class InterestModel{
 
     async delete(id){
         // Send the data to the API using fetch()
-        result = await fetch(`./user/${id}`, {
+        var result = await fetch(`/interest/${id}`, {
             method: 'DELETE'
         })
     
@@ -37,27 +24,9 @@ export class InterestModel{
     }
 
     // GETTERS
-    async getByUser(user){
-        users = await fetch(`/interest/user/${username}`, {method: 'GET'})
-        users = await users.json()
+    async getByUser(userId){
+        var data = await fetch(`/interest/${userId}`, {method: 'GET'})
     
-        return await result.json()
-    }
-
-    async getById(id){
-        users = await fetch(`/interest/${id}`, {method: 'GET'})
-        users = await users.json()
-    
-        return await result.json()
-    }
-
-    // CHECKS
-    async interestChange(user, style){
-        users =  await getByUser(user)
-    
-        if (users.lenght == 0)
-            return false
-        else
-            return true
+        return await data.json()
     }
 }

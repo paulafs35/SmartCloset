@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armario</title>
+    <link rel="shortcut icon" href="/resources/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/closet.css">
+
+    <!-- Boostrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script type="module" src="/js/closet.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo small">
+            <img src="/resources/images/logo.png">
+            <h1>Smart Closet</h1>
+        </div>
+
+        <button class="menu-btn">
+            <div class="btn-line"></div>
+            <div class="btn-line"></div>
+            <div class="btn-line"></div>
+        </button>
+        
+        <nav>
+        </nav>
+
+        <a class="userZone">
+            <img>
+            <p></p>
+        </a>
+    </header>
+
+    <section>
+        <article id="clothesContainer">
+            <h3>Armario</h3>
+            <select id="tbxAesthetic" name="tbxAesthetic" ></select>
+            <table>
+
+            </table>
+        </article>
+
+        <article>
+            <h3>Añadir prendas</h3>
+            <form>
+                <div class="form-group">
+                    <label for="tbxClothes">Prenda:</label>
+                    <select id="tbxClothes" name="tbxClothes"></select>
+                </div>
+                <div class="form-group">
+                    <label for="tbxColor">Color:</label>
+                    <select id="tbxColor" name="tbxColor"></select>
+                </div>
+                <button class="btn dark">Añadir</button>
+            </form>
+        </article>
+    </section>
+</body>
+</html>

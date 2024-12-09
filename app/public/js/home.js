@@ -1,9 +1,13 @@
+import { UserModel } from "./model/userModel.js";
+import { showPopUp, hidePopUp } from "./utils/popupFormManager.js";
+
+var userModel = new UserModel()
+
 window.onload = function(){
     // Link elements
-    buttons = document.querySelectorAll('button');
+    var buttons = document.querySelectorAll('button');
 
     // Set event listener
-
     for (const btn of buttons) {
         btn.addEventListener("click", sendToLink);
     }
@@ -12,29 +16,26 @@ window.onload = function(){
 
 
 // Function that redirects to other links
-function sendToLink(e) {
-    login = e.target.value;
-    if (login == 'login'){
-        showLogin();
+async function sendToLink(e) {
+    e.preventDefault()
+
+    var value = e.target.value;
+    if (value == 'login'){
+        showPopUp();
     }
-    else if(login == 'exit'){
-        hideLogin()
+    else if(value == 'exit'){
+        hidePopUp()
+    }
+    else if(value == '/login'){
+        var form = document.querySelector('form')
+        var data = {
+            'username': form.tbxUsername.value,
+            'password': form.tbxPassword.value,
+        }
+
+        await userModel.login(data);
     }
     else{
-        window.location.href = e.target.value;
+        window.location.href = value;
     }
-}
-
-
-function showLogin(){
-    login_element = document.querySelector('.loginContainer')
-    login_element.style.opacity = 1
-    login_element.style.zIndex = 1
-}
-
-
-function hideLogin(){
-    login_element = document.querySelector('.loginContainer')
-    login_element.style.opacity = 0
-    login_element.style.zIndex = -1
 }

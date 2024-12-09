@@ -12,4 +12,6 @@
 @import url("./common/video.css");
 
 @import url("./common/alert.css");
-@import url("./common/popups.css");
+@import url("./common/popup.css");
+
+@import url("./common/utils.css");

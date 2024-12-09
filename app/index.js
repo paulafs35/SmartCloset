@@ -1,8 +1,9 @@
 const express = require("express");
+const session = require("express-session")
 
 const homeRoutes = require('./routes/homeRoutes');
 const adminRoutes = require('./routes/adminRoutes');
-const teacherRoutes = require('./routes/teacherRoutes');
+const clientRoutes = require('./routes/clientRoutes');
 
 const userRoutes = require('./routes/userRoutes');
 const courseRoutes = require('./routes/courseRoutes');
@@ -13,15 +14,25 @@ const roleRoutes = require('./routes/roleRoutes');
 const interestRoutes = require('./routes/interestRoutes');
 const paletteRoutes = require('./routes/paletteRoutes');
 const outfitRoutes = require('./routes/outfitRoutes');
+const closetRoutes = require('./routes/closetRoutes');
 
 const app = express();
 app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.urlencoded({ limit: '50mb', extended: false}));
 app.use(express.static("public"));
+
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 8 * 60 * 60 * 1000, 
+    },
+}))
 
 app.use("/", homeRoutes);
 app.use("/admin", adminRoutes);
-app.use("/teacher", teacherRoutes);
+app.use("/client", clientRoutes);
 
 app.use("/user", userRoutes);
 app.use("/course", courseRoutes);
@@ -33,6 +44,7 @@ app.use("/clothes", clothesRoutes);
 app.use("/interest", interestRoutes);
 app.use("/palette", paletteRoutes);
 app.use("/outfit", outfitRoutes);
+app.use("/closet", closetRoutes);
 
 
 const PORT = process.env.PORT || 3000;

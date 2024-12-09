@@ -1,0 +1,150 @@
+.popup{
+    padding: 15px;
+
+    background-color: var(--square-background);
+    border-radius: 8px;
+
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+
+    align-items: center;
+    justify-content: flex-start;
+
+    font-size: 18px;
+}
+
+.popup.light{
+    background-color: var(--link-light-hover);
+}
+
+.popup.small{
+    max-width: 500px;
+    min-width: 300px;
+    height: fit-content;
+}
+
+.popup.medium{
+    max-width: 1000px;
+    min-width: 500px;
+    height: 75%;
+}
+
+.popupContainer{
+    backdrop-filter: blur(10px);
+    
+    position: absolute;
+    
+    height: 100vh;
+    width: 100vw;
+
+    top: 0;
+    right: 0;
+
+    z-index: -1;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+
+    transition: .3s opacity linear;
+}
+
+.popup label {
+    display: block;
+    font-weight: bold;
+    justify-self: flex-start;
+}
+
+.popup input {
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    justify-self: flex-start;
+}
+
+.popup input[type="color"] {
+    -webkit-appearance: none; 
+    border: 1px solid black; 
+    border-radius: 50%; 
+    width: 100px;
+    height: 100px; 
+    overflow: hidden;
+    padding: 0; 
+    cursor: pointer; 
+}
+
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 50%;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    padding: 0;
+    border: none; 
+    border-radius: 50%;
+}
+
+.popup textarea{
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+    height: 150px;
+    resize: none;
+    font-family: var(--regular-font);
+    border-radius: 8px;
+    justify-self: flex-start;
+}
+
+.popup form{
+    width: 100%;
+    display: flex;    
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 10px;
+    height: 70%;
+    flex-shrink: 1;
+    flex-grow: 1;
+}
+
+.popup .btn{
+    align-self: center;
+    border-radius: 8px;
+}
+
+.popup form .stylesContainer{
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.popupContainer .exit{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    background-color: transparent;
+
+    font-size: 40px;
+    color: var(--dark);
+    transition: .2s color linear;
+}
+
+.popupContainer .exit:hover{
+    color: rgb(126, 6, 6);
+    cursor: pointer;
+}
+
+.imageContainer{
+    height: 200px;
+    width: auto;
+}

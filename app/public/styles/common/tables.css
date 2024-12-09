@@ -4,7 +4,7 @@ table {
     font-size: 16px;
     border-collapse: separate;
     display: block;
-    height: 75%;
+    height: 80%;
     overflow-y: auto;
 }
 
@@ -15,9 +15,12 @@ td{
     width: 100%;
 }
 
-td:nth-last-child(1),
-td:nth-last-child(2){
+td.icon{
     width: 20px;
+}
+
+td:nth-last-child(4){
+    width: 40%;
 }
 
 .bi{

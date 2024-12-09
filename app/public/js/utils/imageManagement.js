@@ -18,9 +18,12 @@ export async function getImg(file){
     });
 }
 
-export 
+export function loadImg (e) {
+    var profileImg = document.querySelector('.imageContainer img')
+    profileImg.src = URL.createObjectURL(e.target.files[0]);
+};
 
-function loadFile (e) {
-    var profileImg = document.querySelector('img')
+export function loadVideo (e) {
+    var profileImg = document.querySelector('video')
     profileImg.src = URL.createObjectURL(e.target.files[0]);
 };

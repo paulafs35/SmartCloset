@@ -1,9 +1,29 @@
 const getConnection = require(`../config/db`);
 let connection;
+const fs = require("fs");
 
 (async function miConexion() {
     connection = await getConnection();
 })()
+
+function saveImage(base64Image, path){
+    path = `./public/${path}`
+    
+    const matches = base64Image.match(/^data:image\/([a-zA-Z]+);base64,(.+)$/);
+    if (matches) {
+        base64Image = matches[2]; // Extract only the Base64 content
+    }
+
+    // Write the file using fs.writeFile
+    fs.writeFile(path, base64Image, { encoding: 'base64' }, (err) => {
+        if (err) {
+            console.log('Error saving the image:', err.message);
+        } else {
+            console.log('Image saved successfully at', path);
+        }
+    });
+
+}
 
 // Función para obtener todas las provincias
 async function getAllStylesModel() {
@@ -42,11 +62,16 @@ async function getStyleByNameModel(name) {
 async function addStyleModel(userData) {
     const {description, inspoImg, name} = userData;
     try {
+        var fileName = name.toLowerCase().replaceAll(' ', '_')
+        var imgPath = `/resources/images/inspo/${fileName}.jpg`
+
+        saveImage(inspoImg, imgPath)
+
         await connection.query(
             `INSERT INTO styles 
-            (description, inspoimg, name) 
+            (description, inspoImg, name) 
             VALUES (?, ?, ?)`, 
-            [description, inspoImg, name]);       
+            [description, imgPath, name]);       
 
         const [rows] = await connection.query(
             `SELECT * FROM styles 
@@ -61,13 +86,18 @@ async function addStyleModel(userData) {
 async function editStyleModel(userData, id) {
     const {description, inspoImg, name} = userData;
     try {
+        var fileName = name.toLowerCase().replaceAll(' ', '_')
+        var imgPath = `/resources/images/inspo/${fileName}.jpg`
+
+        saveImage(inspoImg, imgPath)
+
         await connection.query(
             `UPDATE styles 
             SET description = ?, 
             inspoImg = ?, 
             name = ? 
             WHERE idstyle = ?`, 
-            [description, inspoImg, name, id]);
+            [description, imgPath, name, id]);
             
         const [rows] = await connection.query(
             `SELECT * FROM styles 

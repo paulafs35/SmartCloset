@@ -4,7 +4,6 @@ const InterestsModel = require('../models/interestModel');
 async function getAllInterestsController(req, res) {
     try {
         const interests = await InterestsModel.getAllInterestsModel();
-        console.log(interests)
         res.json(interests);
     } catch (error) {
         res.status(500).json({ error: error.message });

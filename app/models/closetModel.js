@@ -18,7 +18,7 @@ async function getAllClosetsModel() {
 async function getClosetByIdModel(id) {
     try {
         const [rows] = await connection.query(
-            `SELECT * FROM closets 
+            `SELECT * FROM closet
             WHERE idcloset = ?`, 
             [id]);
         return rows;
@@ -30,7 +30,7 @@ async function getClosetByIdModel(id) {
 async function getClosetByIdUserModel(idUser) {
     try {
         const [rows] = await connection.query(
-            `SELECT * FROM closets 
+            `SELECT * FROM closet 
             WHERE iduser = ?`, 
             [idUser]);
         return rows;
@@ -42,43 +42,58 @@ async function getClosetByIdUserModel(idUser) {
 async function getClosetByIdStyleModel(idStyle, idUser) {
     try {
         const [rows] = await connection.query(
-            `SELECT * FROM closets 
-            WHERE iduser = ? AND idstyle = ?`, 
-            [idUser, idStyle]);
+            `SELECT cl.idcloset, g.name, g.material, co.hex 
+            FROM closet AS cl INNER JOIN clothes AS g ON g.idgarment = cl.idgarment
+            INNER JOIN colors AS co ON co.idcolor = cl.idcolor
+            WHERE cl.iduser = ? AND 
+            (cl.idcolor IN (SELECT p.idcolor FROM palettes AS p WHERE p.idstyle = ?) OR 
+            cl.idgarment IN (SELECT o.idgarment FROM outfits AS o WHERE o.idstyle = ?))`, 
+            [idUser, idStyle, idStyle]);
         return rows;
     } catch (error) {
         throw new Error(`Error al obtener armarios de la base de datos: ` + error.message);
     }
 }
 
-async function addClosetModel(idGarment, idColor, idUser) {
+async function addClosetModel(data) {
+    const {idgarment, idcolor, iduser} = data;
     try {
         await connection.query(
-            `INSERT INTO closets 
+            `INSERT INTO closet 
             (idgarment, idcolor, iduser) 
             VALUES (?, ?, ?)`, 
-            [idGarment, idColor, idUser]);
+            [idgarment, idcolor, iduser]);
+
+        const [rows] = await connection.query(
+            `SELECT * FROM closet 
+            WHERE idgarment = ? AND idcolor = ? AND iduser = ?`,
+            [idgarment, idcolor, iduser]);
+
+        return rows
     } catch (error) {
         throw new Error(`Error al insertar armarios en la base de datos: ` + error.message);
     }
 }
 
-async function setClosetByUserModel(data, iduser) {
-    const {garments, colors} = data;
+async function editClosetByUserModel(data, idcloset) {
+    const {idgarment, idcolor, iduser} = data;
     try {
-        await connection.query(`DELETE FROM closet WHERE iduser = ?`, [iduser]);
 
-        for (const index in garments) {
-            await addClosetModel(garments[index], colors[index], iduser)
-        }
+        await connection.query(
+            `UPDATE closet 
+            SET idgarment = ?, 
+            idcolor = ?,
+            iduser = ? 
+            WHERE idcloset = ?`, 
+            [idgarment, idcolor, iduser, idcloset]);
 
         const [rows] = await connection.query(
-            `SELECT * FROM closets 
+            `SELECT * FROM closet 
             WHERE iduser = ?`, 
             [iduser]);
         return rows;
     } catch (error) {
-        throw new Error(`Error al establecer armarios de la base de datos: ` + error.message);
+        throw new Error(`Error al actualizar armarios de la base de datos: ` + error.message);
     }
 }
 
@@ -88,7 +103,7 @@ async function deleteClosetModel(id) {
         await connection.query(`DELETE FROM closet WHERE idcloset = ?`, [id]);
 
         const [rows] = await connection.query(
-            `SELECT * FROM closets 
+            `SELECT * FROM closet 
             WHERE idcloset = ?`, 
             [id]);
         return rows;
@@ -103,6 +118,6 @@ module.exports = {
     getClosetByIdUserModel,
     getClosetByIdStyleModel,
     addClosetModel,
-    setClosetByUserModel,
+    editClosetByUserModel,
     deleteClosetModel
 }

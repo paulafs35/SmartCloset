@@ -1,0 +1,62 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header{
+    width: 100%;
+}
+
+section{
+    padding: 20px;
+    width: 100%;
+    height: 90%;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+select{
+    width: fit-content;
+}
+
+article{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+h3{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+h4{
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.videoData{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.videoData div{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+video{
+    width: 70%;
+    flex-grow: 0;
+}

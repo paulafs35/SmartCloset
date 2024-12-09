@@ -2,7 +2,7 @@ export class StyleModel{
 
     // CRUD METHODS
     async add(jsonData){
-        var styles = await fetch('./style/add', {
+        var styles = await fetch('/style/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export class StyleModel{
     }
 
     async update(jsonData, id){
-        var styles = await fetch(`./style/${id}`, {
+        var styles = await fetch(`/style/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export class StyleModel{
     }
 
     async delete(id){
-        var styles = await fetch(`./style/${id}`, {
+        var styles = await fetch(`/style/${id}`, {
             method: 'DELETE'
         })
 

@@ -21,8 +21,7 @@ class UserFormView{
         // Select the form element
         var form = document.querySelector('form');
     
-        var image = await getImg(document.querySelector('.user-image img').src)
-
+        var image = await getImg(document.querySelector('.imageContainer img').src)
 
         // Convert FormData to JSON format
         var jsonData = {
@@ -36,7 +35,15 @@ class UserFormView{
             'rolId': isAdmin ? form.tbxRole.value : 3
         };
 
-        return jsonData
+        var styles = {
+            'styles':[]
+        }
+
+        for (const option of document.querySelectorAll('.stylesContainer .cbx:checked')) {
+            styles['styles'].push(option.value);
+        }
+
+        return [jsonData, styles]
     }
 
     showStyle(styleData){
@@ -53,7 +60,7 @@ class UserFormView{
     }
 
     showStyles(styles){
-        var stylesContainer = document.querySelector('.aesthetics')
+        var stylesContainer = document.querySelector('.stylesContainer')
 
         for (const style of styles) {
             var input = document.createElement('input');
@@ -76,7 +83,7 @@ class UserFormView{
 
         for (const role of roles) {
             var option = document.createElement('option')
-            option.value = role['idRole']
+            option.value = role['idrole']
             option.textContent = role['description']
             
             roleSelection.appendChild(option)
@@ -94,10 +101,8 @@ class UserFormView{
     loadDataToEdit(data, isAdmin){
         var form = document.querySelector('form');
     
-        var image = document.querySelector('.user-image img')
+        var image = document.querySelector('.imageContainer img')
 
-
-        // Convert FormData to JSON format
         form.tbxName.value = data.name;
         form.tbxSurname.value = data.surname;
         form.tbxBithDate.value = new Date(data.birthdate).toISOString().split("T")[0];
@@ -107,11 +112,16 @@ class UserFormView{
         form.tbxPasswordConfirmation.value = data.password;
         image.src = data.profilepicture;
 
-        if (isAdmin)
-        {
+        for (const option of document.querySelectorAll('.stylesContainer .cbx')) {
+            if(data.styles.includes(Number.parseInt(option.value)))
+            {
+                option.checked = true;
+            }
+        }
+            
+        if (isAdmin){
             form.tbxRole.value = data.idrole;
         }
-
     }
 }
 

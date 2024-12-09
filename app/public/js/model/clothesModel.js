@@ -3,7 +3,7 @@ export class ClothesModel{
     //  CRUD METHODS
     async add(jsonData){
         // Send the data to the API using fetch()
-        var result = await fetch('./clothes/add', {
+        var result = await fetch('/clothes/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export class ClothesModel{
 
     async update(jsonData, id){
         // Send the data to the API using fetch()
-        var result = await fetch(`./clothes/${id}`, {
+        var result = await fetch(`/clothes/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ export class ClothesModel{
 
     async delete(id){
         // Send the data to the API using fetch()
-        var result = await fetch(`./clothes/${id}`, {
+        var result = await fetch(`/clothes/${id}`, {
             method: 'DELETE'
         })
     
