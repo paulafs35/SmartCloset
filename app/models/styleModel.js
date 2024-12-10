@@ -1,9 +1,9 @@
-const getConnection = require(`../config/db`);
-let connection;
 const fs = require("fs");
+const db = require(`../config/db`);
+let connection;
 
 (async function miConexion() {
-    connection = await getConnection();
+    connection = await db.getConnection();
 })()
 
 function saveImage(base64Image, path){

@@ -1,9 +1,10 @@
-const getConnection = require(`../config/db`);
+const db = require(`../config/db`);
 let connection;
 
 (async function miConexion() {
-    connection = await getConnection();
+    connection = await db.getConnection();
 })()
+
 
 // Función para obtener todas las provincias
 async function getAllLearnedModel() {

@@ -6,15 +6,17 @@ const DB_PASSWORD = process.env.DB_PASSWORD || 'temporal'
 const DB_NAME = process.env.DB_NAME || 'smartcloset'
 const DB_PORT = process.env.DB_PORT || 'localhost'
 
+const optConnection = {
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_NAME,
+    port: DB_PORT
+}
+
 async function getConnection() {
     try {
-        const connection = await mysql.createConnection({
-            host: DB_HOST,
-            user: DB_USER,
-            password: DB_PASSWORD,
-            database: DB_NAME,
-            port: DB_PORT
-        });
+        const connection = await mysql.createConnection(optConnection);
 
         return connection;
     }
@@ -24,4 +26,7 @@ async function getConnection() {
     }
 }
 
-module.exports = getConnection;
+module.exports = {
+    getConnection,
+    optConnection
+}

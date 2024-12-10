@@ -1,9 +1,9 @@
-const getConnection = require(`../config/db`);
-const fs = require("fs");
+const db = require(`../config/db`);
+const fs = require("fs"); 
 let connection;
 
 (async function miConexion() {
-    connection = await getConnection();
+    connection = await db.getConnection();
 })()
 
 function saveVideo(base64Video, path){

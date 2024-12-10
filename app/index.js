@@ -1,5 +1,7 @@
 const express = require("express");
-const session = require("express-session")
+const session = require("express-session");
+const MySQLStore = require('express-mysql-session')(session);
+const db = require('./config/db')
 
 const homeRoutes = require('./routes/homeRoutes');
 const adminRoutes = require('./routes/adminRoutes');
@@ -22,8 +24,11 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: false}));
 app.use(express.static("public"));
 
+const sessionStore = new MySQLStore(db.optConnection);
+
 app.use(session({
     secret: 'secret',
+    store: sessionStore,
     resave: true,
     saveUninitialized: true,
     cookie: {
