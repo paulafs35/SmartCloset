@@ -16,7 +16,7 @@ const optConnection = {
 
 async function getConnection() {
     try {
-        const connection = await mysql.createConnection(optConnection);
+        const connection = await mysql.createPool(optConnection);
 
         return connection;
     }

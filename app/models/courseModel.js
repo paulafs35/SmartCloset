@@ -13,7 +13,7 @@ function saveVideo(base64Video, path){
     if (matches) {
         base64Video = matches[2]; // Extract only the Base64 content
     }
-    // base64Video = base64Video.replace("data:video/mp4;base64,","");
+    base64Video = base64Video.replace("data:video/mp4;base64,","");
     // Write the file using fs.writeFile
 
     fs.writeFile(path, base64Video, { encoding: 'base64' }, (err) => {
