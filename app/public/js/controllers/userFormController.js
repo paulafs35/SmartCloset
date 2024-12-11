@@ -77,6 +77,15 @@ export class userFormController{
                 await this.interestModel.set(userData[1], user)
 
                 createInfoAlert('El usuario se ha creado correctamente')
+
+                if(!this.isAdmin){
+                    var jsonData = {
+                        'username': userData[0].username,
+                        'password': userData[0].password,
+                    }
+
+                    await this.userModel.login(jsonData)
+                }
             } 
         }
         catch(error){

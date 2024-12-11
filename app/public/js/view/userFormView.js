@@ -92,7 +92,7 @@ class UserFormView{
 
     hideRoles(){
         var roleSelection = document.querySelector('#tbxRole')
-        var roleLabel = document.querySelector('#tbxRole + label')
+        var roleLabel = document.querySelector('label[for="tbxRole"')
 
         roleSelection.remove()
         roleLabel.remove()
